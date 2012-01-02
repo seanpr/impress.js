@@ -86,8 +86,8 @@
     // CHECK SUPPORT
     
     var ua = navigator.userAgent.toLowerCase();
-    var impressSupported = ( pfx("perspective") != null ) &&
-                           ( ua.search(/(iphone)|(ipod)|(ipad)|(android)/) == -1 );
+    var impressSupported = ( pfx("perspective") != null ); // &&
+                           // ( ua.search(/(iphone)|(ipod)|(ipad)|(android)/) == -1 );
     
     // DOM ELEMENTS
     
@@ -252,6 +252,21 @@
         }
     }, false);
 
+    window.addEventListener("touchend",function(event) {
+      var active = $(".step.active", impress);
+      var next = active;
+      next = steps.indexOf( active ) + 1;
+      next = next < steps.length ? steps[ next ] : steps[ 0 ];
+      select(next);
+
+      event.preventDefault();
+
+    },false);
+
+
+    window.addEventListener("touchend",function(event) {
+      event.preventDefault();
+    },false);
     
     // Sometimes it's possible to trigger focus on first link with some keyboard action.
     // Browser in such a case tries to scroll the page to make this element visible
@@ -264,6 +279,18 @@
         window.scrollTo(0, 0);
     }, false);
     
+    setTimeout(function() {
+      window.scrollTo(0, 1);
+    },0);
+
+    window.addEventListener('orientationchange',function() {
+      var meta = document.createElement("meta");
+      meta.name = "apple-mobile-web-app-capable";
+      meta.content = 'yes';
+      $$("head")[0].appendChild(meta );
+      setTimeout(function() { window.scrollTo(0,1); }, 0);
+    });
+
     // START 
     // by selecting first step of presentation
     select(steps[0]);
