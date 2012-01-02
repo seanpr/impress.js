@@ -263,11 +263,6 @@
 
     },false);
 
-
-    window.addEventListener("touchend",function(event) {
-      event.preventDefault();
-    },false);
-    
     // Sometimes it's possible to trigger focus on first link with some keyboard action.
     // Browser in such a case tries to scroll the page to make this element visible
     // (even that body overflow is set to hidden) and it breaks our careful positioning.
